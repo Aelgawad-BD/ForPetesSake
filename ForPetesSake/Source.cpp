@@ -1,7 +1,12 @@
-
 #include "SDLWrapper.h";
 
 using namespace std;
+
+// The window we are rendering to
+SDL_Window* Global::window = NULL;
+
+// The surface contained by the window
+SDL_Surface* Global::screenSurface = NULL;
 
 int main(int argc, char* args[])
 {

@@ -4,7 +4,6 @@ using namespace std;
 
 string SDLWRP::Initialize()
 {
-
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		return  "SDL couldn't initialize";

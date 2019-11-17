@@ -6,13 +6,13 @@
 #include "configurations.h"
 
 namespace Global {
-
 	// The window we are rendering to
-	SDL_Window* window = NULL;
+	extern SDL_Window* window;
 
 	// The surface contained by the window
-	SDL_Surface* screenSurface = NULL;
+	extern SDL_Surface* screenSurface;
 }
+
 
 namespace SDLWRP {
 	std::string Initialize();
