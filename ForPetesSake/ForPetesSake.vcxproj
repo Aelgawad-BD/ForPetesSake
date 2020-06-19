@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>E:\BACKUP_01NOV2019\Main\Projects\1D-Software\Tools&amp;Utils\Libraries\SDL2-2.0.10-VC\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\BACKUP_01NOV2019\Main\Projects\1D-Software\Tools&amp;Utils\Libraries\SDL2-2.0.10-VC\lib\x86;G:\Documents\SoftwareDev\Libraries\SDL2-2.0.10-VC\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\black\Desktop\Main\Projects\1D-Software\Libraries\SDL2-2.0.10-VC\include;C:\Users\black\Desktop\Main\Projects\1D-Software\Libraries\SDL2_image-2.0.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\BACKUP_01NOV2019\Main\Projects\1D-Software\Tools&amp;Utils\Libraries\SDL2-2.0.10-VC\lib\x86;C:\Users\black\Desktop\Main\Projects\1D-Software\Libraries\SDL2-2.0.10-VC\lib\x86;C:\Users\black\Desktop\Main\Projects\1D-Software\Libraries\SDL2_image-2.0.5\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -81,7 +81,7 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
@@ -122,11 +122,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LTexture.cpp" />
     <ClCompile Include="SDLWrapper.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="configurations.h" />
+    <ClInclude Include="LTexture.h" />
     <ClInclude Include="SDLWrapper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
