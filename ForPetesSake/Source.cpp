@@ -28,7 +28,7 @@ int main(int argc, char* args[])
 		//Render background texture to screen
 		GodInstance.gBackgroundTexture.Render(0, 0, NULL);
 		
-		GodInstance.gCharacterTexture.RenderNextWalkFrame(0, 190);
+		GodInstance.gCharacterTexture.RenderNextWalkFrame(30, 390);
 		// GodInstance.gCharacterTexture.RenderAnimation(240, 190);
 
 

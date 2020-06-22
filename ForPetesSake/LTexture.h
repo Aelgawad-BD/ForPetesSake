@@ -12,11 +12,13 @@ public:
 	~LTexture();
 	bool LoadFromFile(const std::string);
 	void Free();
-	void Render(int, int); // not in use
-	void Render(int x, int y, SDL_Rect* clip);
-	void RenderAnimation(int posX, int posY);// not in use
-	void RenderNextWalkFrame(int posX, int posY);
 	void loadFrames(int startFrame, int endFrame, int frameWidth, int frameHeight);
+	// void loadWalkFrames(int startFrame, int endFrame, int frameWidth, int frameHeight);
+	// void loadIdleFrames(int startFrame, int endFrame, int frameWidth, int frameHeight);
+	void Render(int x, int y, SDL_Rect* clip);
+	void RenderNextWalkFrame(int posX, int posY);
+	void RenderNextIdleFrame(int posX, int posY);
+	
 
 	SDL_Rect* SpliceSpriteSheet(int startFrame, int endFrame, int noOfFrames);
 
@@ -58,3 +60,5 @@ private:
 	int currentFrame = 0;
 	// enum pose is it in .standing .idle .walking .running .fighting .getting hit .dying state
 };
+
+// you should create a new class SpriteSheet that inherits from texture

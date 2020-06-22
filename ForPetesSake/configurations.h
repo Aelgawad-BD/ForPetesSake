@@ -6,8 +6,8 @@
 
 const std::string TITLE = "From Const Variable with Love";
 // const char* oink = "From Const Variable with Love";
-const int SCREEN_WIDTH = 840;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 1250; // 840;
+const int SCREEN_HEIGHT = 600; // 480;
 const int TIME_DELAY = 2000;
 
 enum ExitCode
@@ -46,7 +46,7 @@ const std::string img_Down_png = "Resources/PNG/down.png";
 const std::string img_Left_png = "Resources/PNG/left.png";
 const std::string img_Right_png = "Resources/PNG/right.png";
 
-const std::string img_background_png = "Resources/PNG/background.png";
+const std::string img_background_png = "Resources/PNG/backscene.png";
 const std::string img_charcter_png = "Resources/PNG/foo.png";
 
 const std::string spriteSheet_mainCharcter_walkCycle_png = "Resources/PNG/main_walkCycle.png";

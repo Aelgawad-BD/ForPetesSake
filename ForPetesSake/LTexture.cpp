@@ -78,13 +78,6 @@ void LTexture::Free()
 	}
 }
 
-// Don't think you need the following since the one beneath it can handle 
-void LTexture::Render(int posX, int posY)
-{
-	// renders the whole image as defined by the attributes width and height
-	SDL_Rect renderQuad = { posX, posY, this->width, this->height };
-	SDL_RenderCopy(this->renderer, this->texture, NULL, &renderQuad);
-}
 
 // TODO: Need to make this generic
 //  takes in the X & Y positions where sprite is rendered as well as the part (clip) 
@@ -125,13 +118,9 @@ void LTexture::RenderNextWalkFrame(int posX, int posY)
 	}
 }
 
-void LTexture::RenderAnimation(int posX, int posY)
+void LTexture::RenderNextIdleFrame(int posX, int posY)
 {
 
-	for (int i = 0; i < this->numberOfFrames; i++)
-	{
-		Render(posX, posY, (spriteFrames + i));
-	}
 }
 
 // The purpose of the function is to supply the RenderClip with SDL_Rects
