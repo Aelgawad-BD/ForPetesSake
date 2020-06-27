@@ -6,7 +6,9 @@
 #include <SDL_image.h>
 
 #include "configurations.h"
-#include "LTexture.h"
+
+#include "Entity.h"
+#include "Character.h"
 
 
 
@@ -63,7 +65,11 @@ public:
 
 	SDL_Texture* gKeyPressTextures[KEY_PRESS_SURFACE_TOTAL];
 
-	LTexture gBackgroundTexture;
-	LTexture gCharacterTexture;
+	Texture gBackgroundTexture;
+	Texture gCharacterTexture;
 
+	// load entities not textures
+	//  entities has textures amongst other things
+	Entity gBackground;
+	Character gMainCharacter;
 };

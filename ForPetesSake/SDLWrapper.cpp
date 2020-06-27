@@ -2,7 +2,7 @@
 
 using namespace std;
 
-SDLWRP::SDLWRP()
+SDLWRP::SDLWRP() :gMainCharacter(63, 100, "Ugly Naked Guy", 100, 20, 10)
 {
 	Initialize();
 }
@@ -48,11 +48,12 @@ bool SDLWRP::Initialize()
 	//// LoadKeyPressSurfacesArray();
 	//LoadKeyPressTexturesArray();
 
-	this->gBackgroundTexture.SetRenderer(this->gRenderer);
-	this->gCharacterTexture.SetRenderer(this->gRenderer);
-	this->gCharacterTexture.SetIsSpriteSheet(true);
+	// this->gBackgroundTexture.SetRenderer(this->gRenderer);
+	// this->gCharacterTexture.SetRenderer(this->gRenderer);
 
-	this->gCharacterTexture.IsSpriteSheet();
+
+	this->gBackground.SetRenderer(this->gRenderer);
+	this->gMainCharacter.SetRenderer(this->gRenderer);
 
 	this->gIsRunning = LoadSceneMedia();
 
@@ -253,14 +254,14 @@ bool SDLWRP::LoadSceneMedia()
 	bool success = true;
 
 	//Load Foo' texture
-	if (!this->gCharacterTexture.LoadFromFile(spriteSheet_mainCharcter_walkCycle_png))
+	if (!this->gMainCharacter.LoadTextureFromFile(spriteSheet_UNGCharcter_walkCycle_png))
 	{
 		printf("Failed to load Foo' texture image!\n");
 		success = false;
 	}
 
 	//Load background texture
-	if (!this->gBackgroundTexture.LoadFromFile(img_background_png))
+	if (!this->gBackground.LoadTextureFromFile(img_background_png))
 	{
 		printf("Failed to load background texture image!\n");
 		success = false;
@@ -274,12 +275,12 @@ void SDLWRP::ShutSceneDown()
 	// This applies to the whole system
 	//   so it should be called on system close
 
-	this->gCharacterTexture.Free();
-	this->gBackgroundTexture.Free();
+	this->gBackground.Free();
+	this->gMainCharacter.Free();
 
 	//// Deallocate the image Surface // was used before texture
-	//SDL_FreeSurface(this->gLiveSurface);
-	//this->gLiveSurface = NULL;
+	// SDL_FreeSurface(this->gLiveSurface);
+	// this->gLiveSurface = NULL;
 
 	SDL_DestroyRenderer(this->gRenderer);
 	this->gRenderer = NULL;
