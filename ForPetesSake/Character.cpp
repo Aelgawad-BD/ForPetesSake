@@ -24,15 +24,45 @@ void Character::SetRenderer(SDL_Renderer* renderer)
 	this->texture.SetRenderer(renderer);
 }
 
-void Character::Walk(Direction dir)
+void Character::SetDirection(Direction dir)
 {
 	this->spriteSheet.direction = dir;
 
+
+	switch (dir)
+	{
+	case Direction::RIGHT:
+		this->spriteSheet.flip = SDL_FLIP_NONE;
+
+		if (stepSpeed < 0)
+		{
+			stepSpeed = -stepSpeed;
+			baseSpeed = -baseSpeed;
+		}
+		break;
+
+	case Direction::LEFT:
+		this->spriteSheet.flip = SDL_FLIP_HORIZONTAL;
+		if (stepSpeed >= 0)
+		{
+			stepSpeed = -stepSpeed;
+			baseSpeed = -baseSpeed;
+		}
+		break;
+	}
+}
+
+void Character::Walk()
+{
 	if (XPosition >= 0 && XPosition <= SCREEN_WIDTH)
 	{
 		this->spriteSheet.RenderNextWalkFrame(this->XPosition, this->YPosition, this->stepSpeed, this->baseSpeed);
 	}
-	else
+	if (XPosition < 0)
+	{
+		XPosition = SCREEN_WIDTH;
+	}
+	if (XPosition > SCREEN_WIDTH)
 	{
 		XPosition = 0;
 	}

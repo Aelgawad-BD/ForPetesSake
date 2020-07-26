@@ -57,7 +57,7 @@ bool Texture::LoadFromFile(const std::string path)
 	return this->texture != NULL;
 }
 
-//  Takes in the X & Y positions where sprite is rendered as well as the part (clip) 
+//  TDL_RenderCopyakes in the X & Y positions where sprite is rendered as well as the part (clip) 
 //		of the sprite sheet to be rendered
 void Texture::Render(int posX, int posY, SDL_Rect* clip)
 {

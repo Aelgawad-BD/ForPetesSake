@@ -124,7 +124,7 @@ void SpriteSheet::RenderNextWalkFrame(int& posX, int& posY, int stepspeed, int b
 	SDL_Rect renderQuad = { posX, posY, this->walkFrames[this->currentFrame].w, this->walkFrames[this->currentFrame].h };
 
 	// Render to screen
-	SDL_RenderCopy(renderer, texture, this->walkFrames + currentFrame, &renderQuad);
+	SDL_RenderCopyEx(renderer, texture, this->walkFrames + currentFrame, &renderQuad, 0, NULL, this->flip);
 
 	this->currentFrame++;
 
@@ -133,7 +133,7 @@ void SpriteSheet::RenderNextWalkFrame(int& posX, int& posY, int stepspeed, int b
 		currentFrame = 0;
 	}
 
-	if (this->currentFrame == 0 || this->currentFrame == 3)
+	if (this->currentFrame == 0 || this->currentFrame == 3)		// uh oh! Magic Numbers!
 	{
 		posX += stepspeed;
 	}
@@ -141,6 +141,4 @@ void SpriteSheet::RenderNextWalkFrame(int& posX, int& posY, int stepspeed, int b
 	{
 		posX += basespeed;
 	}
-
-
 }

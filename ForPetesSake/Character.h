@@ -26,5 +26,7 @@ public:
 
 	bool LoadTextureFromFile(const std::string file) override;
 	void SetRenderer(SDL_Renderer*) override;
-	void Walk(Direction);
+	void Walk();
+
+	void SetDirection(Direction direction);
 };

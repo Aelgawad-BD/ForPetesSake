@@ -22,11 +22,13 @@ private:
 
 	int currentFrame;
 	SpriteSheet_Animation currentAnimation;
-	
+
 
 public:
-	// bool isInverted = false;	// indicates if the character is going right to left
+	
+	// indicates if the character is going right to left
 	Direction direction;
+	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 	// CONSTRUCTORS
 	//SpriteSheet(); // but you HAVE to provide frame width and height
