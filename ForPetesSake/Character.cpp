@@ -79,6 +79,11 @@ SpriteSheet_Animation Character::GetCurrentAnimation()
 	return this->spriteSheet.getCurrentAnimation();
 }
 
+void Character::SetFrame(int frameNumber)
+{
+	this->spriteSheet.SetCurrentFrame(frameNumber);
+}
+
 void Character::SetRenderer(SDL_Renderer* renderer)
 {
 	this->spriteSheet.SetRenderer(renderer);

@@ -37,6 +37,8 @@ public:
 	Direction GetDirection();
 	SpriteSheet_Animation GetCurrentAnimation();
 
+	void SetFrame(int frameNumber);
+
 	void SetRenderer(SDL_Renderer*) override;
 
 	void Stand();

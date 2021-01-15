@@ -32,13 +32,6 @@ public:
 	// The image we will load and show on screen
 	SDL_Surface* gLiveSurface;
 
-	/*
-		Important Fun Fact: SDL_Surface uses Software Rendering which means it is rendered by the CPU
-
-		Now will be using SDL_Texture instead of SDL_Surface which uses hardware rendering
-		(which runs on GPU - Hardware acceleration)
-	*/
-
 	// You need that with Textures
 	SDL_Renderer* gRenderer;
 
@@ -48,19 +41,7 @@ public:
 	// Event handler
 	SDL_Event gEvent;
 
-	//SDL_Surface* gKeyPressSurfaces[KEY_PRESS_SURFACE_TOTAL];
-
 	SDL_Texture* gKeyPressTextures[KEY_PRESS_SURFACE_TOTAL];
-
-	//-// Texture gBackgroundTexture;
-	//-// Texture gCharacterTexture;
-
-	// load entities not textures
-	//  entities has textures amongst other things
-
-	// Idea: Instead of having a background entity
-	//       there should be an Environment class that has a background and a whole bunch of tiles
-	//		I wonder if all the characters should be included in the Environment class as well (environment has a characters)
 
 	Game gGame;
 	SplashScreen gStudioLogo;

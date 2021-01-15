@@ -63,21 +63,21 @@ bool SDLWRP::LoadSceneMedia()
 	//Loading success flag
 	bool success = true;
 
-	gTitleLogo.SetBlendMode(SDL_BLENDMODE_BLEND);
+	//gTitleLogo.SetBlendMode(SDL_BLENDMODE_BLEND);
 
-	//Load Intro texture
-	if (!this->gTitleLogo.LoadTextureFromFile(img_title_png))
-	{
-		printf("Failed to load Intro texture image!\n");
-		success = false;
-	}
+	////Load Intro texture
+	//if (!this->gTitleLogo.LoadTextureFromFile(img_title_png))
+	//{
+	//	printf("Failed to load Intro texture image!\n");
+	//	success = false;
+	//}
 
-	//Load Intro texture
-	if (!this->gStudioLogo.LoadTextureFromFile(img_studio_png))
-	{
-		printf("Failed to load Intro texture image!\n");
-		success = false;
-	}
+	////Load Intro texture
+	//if (!this->gStudioLogo.LoadTextureFromFile(img_studio_png))
+	//{
+	//	printf("Failed to load Intro texture image!\n");
+	//	success = false;
+	//}
 
 	return success;
 }
@@ -87,8 +87,8 @@ void SDLWRP::ShutDown()
 	// This applies to the whole system
 	//   so it should be called on system close
 
-	this->gTitleLogo.Free();
-	this->gStudioLogo.Free();
+	//this->gTitleLogo.Free();
+	//this->gStudioLogo.Free();
 
 	//// Deallocate the image Surface // was used before texture
 	// SDL_FreeSurface(this->gLiveSurface);

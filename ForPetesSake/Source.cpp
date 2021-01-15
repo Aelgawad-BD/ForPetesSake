@@ -61,7 +61,7 @@ int main(int argc, char* args[])
 		// Update screen
 		SDL_RenderPresent(sdlGodInstance.gRenderer);
 		// currentFrame = 0; // on next line
-		// sdlGodInstance.gGame.mainCharacter.ResetFrame();
+		
 	}
 
 	sdlGodInstance.ShutDown();

@@ -61,6 +61,7 @@ public:
 
 	// Setters
 	void SetFrameDimensions(int fw, int fh);
+	void SetCurrentFrame(int frameNumber);
 
 	// Populate the arrays walkFrames, runFrames, idleFrames with SDL_Rect s
 	void LoadIdleFrames(int frameCount);

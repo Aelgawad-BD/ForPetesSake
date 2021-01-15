@@ -54,6 +54,31 @@ void SpriteSheet::SetFrameDimensions(int fw, int fh)
 	}
 }
 
+void SpriteSheet::SetCurrentFrame(int frameNumber)
+{
+	switch (this->currentAnimation)
+	{
+	case SpriteSheet_Animation::IDLE:
+		if (frameNumber >= 0 && frameNumber < numberOfIdleFrames)
+		{
+			currentFrame = frameNumber;
+		}
+		break;
+
+	case SpriteSheet_Animation::RUN:
+		if (frameNumber >= 0 && frameNumber < numberOfRunFrames)
+		{
+			currentFrame = frameNumber;
+		}
+	break; case SpriteSheet_Animation::ATTACK:
+		if (frameNumber >= 0 && frameNumber < numberOfAttackFrames)
+		{
+			currentFrame = frameNumber;
+		}
+		break;
+	}
+}
+
 
 // Chops up the sprite sheet into SDL_Rects and loads them in memory so they're there when needed at render time
 // The purpose of the function is to supply the RenderClip with SDL_Rects
