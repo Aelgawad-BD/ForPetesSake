@@ -3,81 +3,68 @@
 
 using namespace std;
 
-
 int main(int argc, char* args[])
 {
-	SDLWRP GodInstance;
+	SDLWRP sdlGodInstance;
 
-	// Set Player and Background initial positions
-	GodInstance.gBackground.SetPosition(0, 0);
-	GodInstance.gMainCharacter.SetPosition(30, 309);
+	// Clear screen
+	SDL_SetRenderDrawColor(sdlGodInstance.gRenderer, 0, 0, 0, 0xFF);
+	SDL_RenderClear(sdlGodInstance.gRenderer);
 
 	// Game Loop
 	//  Whilst application is running
-	while (GodInstance.gIsRunning)
+	while (sdlGodInstance.gIsRunning)
 	{
 		// Handle events on queue
-		while (SDL_PollEvent(&GodInstance.gEvent) != 0)
+		while (SDL_PollEvent(&sdlGodInstance.gEvent) != 0)
 		{
 			//User requests quit
-			if (GodInstance.gEvent.type == SDL_QUIT)
+			if (sdlGodInstance.gEvent.type == SDL_QUIT)
 			{
-				GodInstance.gIsRunning = false;
+				sdlGodInstance.gIsRunning = false;
 			}
 		}
 
 		// Clear screen
-		SDL_SetRenderDrawColor(GodInstance.gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
-		SDL_RenderClear(GodInstance.gRenderer);
+		SDL_SetRenderDrawColor(sdlGodInstance.gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
+		SDL_RenderClear(sdlGodInstance.gRenderer);
 
-		// Render background texture to screen
+		sdlGodInstance.gGame.Draw();
 
-		GodInstance.gBackground.Draw(NULL);
-
-
-		//// should be .Move(direction) or .Run(right) and the position and animation handeled internally
-		//GodInstance.gMainCharacter.Walk(Direction::RIGHT);
-
-		//GodInstance.gCharacterTexture.RenderNextWalkFrame(30, 390);
-
-		const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-		if (currentKeyStates[SDL_SCANCODE_UP])
+		if (sdlGodInstance.gGame.mainCharacter.GetCurrentAnimation() == SpriteSheet_Animation::ATTACK)
 		{
-			// currentTexture = &gUpTexture;
+			sdlGodInstance.gGame.mainCharacter.Attack();
 		}
-		else if (currentKeyStates[SDL_SCANCODE_DOWN])
-		{
-			// currentTexture = &gDownTexture;
-		}
-		else if (currentKeyStates[SDL_SCANCODE_LEFT])
-		{
-			// should be .Move(direction) or .Run(right) and the position and animation handeled internally
-			GodInstance.gMainCharacter.SetDirection(Direction::LEFT);
-			GodInstance.gMainCharacter.Walk();
-		}
-		else if (currentKeyStates[SDL_SCANCODE_RIGHT])
-		{
-			// should be .Move(direction) or .Run(right) and the position and animation handeled internally
-			GodInstance.gMainCharacter.SetDirection(Direction::RIGHT);
-			GodInstance.gMainCharacter.Walk();
-		}
-		else
-		{
-			// [TODO] Place Idle Animation
-			// currentTexture = &gPressTexture;
-			// GodInstance.gMainCharacter.SetDirection(Direction::RIGHT);
-			// GodInstance.gMainCharacter.Walk();
-		}
+		else {
 
-
-
-		//Update screen
-		SDL_RenderPresent(GodInstance.gRenderer);
+			const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+			
+			if (currentKeyStates[SDL_SCANCODE_LEFT])
+			{
+				sdlGodInstance.gGame.mainCharacter.SetDirection(Direction::LEFT);
+				sdlGodInstance.gGame.mainCharacter.Run();
+			}
+			else if (currentKeyStates[SDL_SCANCODE_RIGHT])
+			{
+				sdlGodInstance.gGame.mainCharacter.SetDirection(Direction::RIGHT);
+				sdlGodInstance.gGame.mainCharacter.Run();
+			}
+			else if (currentKeyStates[SDL_SCANCODE_SPACE])
+			{
+				sdlGodInstance.gGame.mainCharacter.Attack();
+			}
+			else
+			{
+				sdlGodInstance.gGame.mainCharacter.Stand();
+			}
+		}
+		// Update screen
+		SDL_RenderPresent(sdlGodInstance.gRenderer);
+		// currentFrame = 0; // on next line
+		// sdlGodInstance.gGame.mainCharacter.ResetFrame();
 	}
 
-	// no need to Wait, game is running long as no quit event triggered
-
-	GodInstance.ShutDown();
+	sdlGodInstance.ShutDown();
 
 	return ExitCode::SUCCESS;
 }

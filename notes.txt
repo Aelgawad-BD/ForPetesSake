@@ -16,9 +16,14 @@ OPTION 1:
 One design to consider for the Character, Texture relationship is:
 - Entity has Texture (entity is an inanimate picture)
 - Character inherits Entity
-- Character has Texture
+- Character has Texture (bt default)
 - Character implements Animator
 - Animator takes in (as a param, or however) the texture file, which in this case should be a sprite sheet and manages the animation, so it would support functions like RenderWalkAnimation() or Move(right)
 
 OPTION 2:
 Another Design to consider is to have the LTexture class handle animation by itself, it would figure out if object is animate or not, and have a whole bunch of functions that only work for sprite sheets like RenderWalkAnimation() or Move(right)
+
+
+Created a SPriteSheet class which handles all visiual aspects for an entity. SpriteSheet houses inside an array of Texture objects (currently 6) one Texture for each of the 6 animations. SpriteSheet DOESNOT inherit from Texture anymore.
+
+If it is an animate object aka Character it has SpriteSheet else it has a Texture

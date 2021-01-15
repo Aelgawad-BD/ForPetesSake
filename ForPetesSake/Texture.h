@@ -20,6 +20,9 @@ public:
 	// Getters
 	int GetFileWidth();
 	int GetFileHeight();
+	float GetScale();
+	SDL_Renderer* GetRenderer();
+	SDL_Texture* GetTexture();
 
 	// Settters
 	void SetRenderer(SDL_Renderer* renderer);
@@ -28,6 +31,7 @@ public:
 	void SetColor(Uint8 red, Uint8 green, Uint8 blue);
 	void SetBlendMode(SDL_BlendMode blending);
 	void SetAlpha(Uint8 alpha);
+	void SetScale(float scale);
 
 protected:
 	// The actual hardware texture
@@ -41,4 +45,7 @@ protected:
 	// Image File Dimensions
 	int width;
 	int height;
+
+	// Scale applied to both L and W
+	float scale = 1.0f;
 };

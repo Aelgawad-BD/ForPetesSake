@@ -1,56 +1,80 @@
 #pragma once
 #include "Texture.h"
 
+/*
+	SpriteSheet handles all animations even if they are (and they are) spread out over more than one sprite sheet
+	all you need is a single object for each Entity
+*/
 
 class SpriteSheet : public Texture
 {
 private:
-	// Walking animation
+	// Idle animation
+	SDL_Rect* idleFrames;
+	int numberOfIdleFrames;
+
+	// Walking animation array
 	SDL_Rect* walkFrames;
 	int numberOfWalkFrames;
 
-	// Running animation
+	// Running animation array
 	SDL_Rect* runFrames;
 	int numberOfRunFrames;
 
-	// Idle animation
-	SDL_Rect* idleFrames = NULL;
-	int numberOfIdleFrames;
+	// Attack animation array
+	SDL_Rect* attackFrames;
+	int numberOfAttackFrames;
 
+	int currentFrame;
+	SpriteSheet_Animation currentAnimation = IDLE;
+
+	int idleAnimationDelay = 100;
+	int walkAnimationDelay = 60;
+	int attackAnimationDelay = 90;
+	int runAnimationDelay = 60;		// Trial n Error (... and that's a magic number)
+
+	// holds all the resource files (spritesheets in order)
+	std::string spriteSheetFile;
+
+	// All animation frames should have the same dimmensions
 	int frameWidth;
 	int frameHeight;
 
-	int currentFrame;
-	SpriteSheet_Animation currentAnimation;
-
-
 public:
-	
+
 	// indicates if the character is going right to left
 	Direction direction;
 	SDL_RendererFlip flip = SDL_FLIP_NONE;
 
-	// CONSTRUCTORS
-	//SpriteSheet(); // but you HAVE to provide frame width and height
-	SpriteSheet(int frameWidth, int frameHeight);
+	// CONSTRUCTOR
+	SpriteSheet();
 
-	// Destructor
+	// DESTRUCTOR
 	~SpriteSheet();
-	void Free() override;
+
+	// GETTERS
+	SpriteSheet_Animation getCurrentAnimation();
+	int GetIdleFramesCount();
+	int GetWalkFramesCount();
+	int GetRunFramesCount();
+	// ...
 
 	// Setters
 	void SetFrameDimensions(int fw, int fh);
 
 	// Populate the arrays walkFrames, runFrames, idleFrames with SDL_Rect s
-	void LoadWalkingFrames(int startFrame, int endFrame);
-	void LoadRunningFrames(int startFrame, int endFrame);
-	void LoadIdleFrames(int startFrame, int endFrame);
+	void LoadIdleFrames(int frameCount);
+	void LoadWalkFrames(int frameCount);
+	void LoadRunFrames(int frameCount);
+	void LoadAttackFrames(int frameCount);
 	// ...
 
 	// Display the next frame in the animation
+	void RenderNextIdleFrame(int& poX, int& posY);
 	void RenderNextWalkFrame(int& poX, int& posY, int stepSpeed, int baseSpeed);
-	void RenderNextRunningFrame(int poX, int posY);
-	void RenderNextIdleFrame(int poX, int posY);
+	void RenderNextRunFrame(int& poX, int& posY, int stepspeed);
+	void RenderNextAttackFrame(int& poX, int& posY);
+	void RenderAttackFrames(int& poX, int& posY);
 	// ...
 };
 

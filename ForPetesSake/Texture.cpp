@@ -7,6 +7,7 @@ Texture::Texture()
 	this->texture = NULL;
 	this->width = 0;
 	this->height = 0;
+	this->scale = 1.0f;
 	this->renderer = NULL;
 }
 
@@ -62,11 +63,12 @@ bool Texture::LoadFromFile(const std::string path)
 void Texture::Render(int posX, int posY, SDL_Rect* clip)
 {
 	// Set rendering space and render to screen
-	SDL_Rect renderQuad = { posX, posY, this->width, this->height };
+	SDL_Rect renderQuad = { posX, posY, (this->width) * this->scale, (this->height) * this->scale };
 
 	// Set clip rendering dimensions
 	if (clip != NULL)
 	{
+		renderQuad.w = clip->w;
 		renderQuad.w = clip->w;
 		renderQuad.h = clip->h;
 	}
@@ -74,6 +76,24 @@ void Texture::Render(int posX, int posY, SDL_Rect* clip)
 	// Render to screen
 	SDL_RenderCopy(renderer, texture, clip, &renderQuad);
 }
+
+//// EXPIRMENTAL
+//void Texture::RenderFadeIn(int posX, int posY, SDL_Rect* clip)
+//{
+//	// Set rendering space and render to screen
+//	SDL_Rect renderQuad = { posX, posY, (this->width) * this->scale, (this->height) * this->scale };
+//
+//	// Set clip rendering dimensions
+//	if (clip != NULL)
+//	{
+//		renderQuad.w = clip->w;
+//		renderQuad.w = clip->w;
+//		renderQuad.h = clip->h;
+//	}
+//
+//	// Render to screen
+//	SDL_RenderCopy(renderer, texture, clip, &renderQuad);
+//}
 
 void Texture::Free()
 {
@@ -97,6 +117,21 @@ int Texture::GetFileWidth()
 int Texture::GetFileHeight()
 {
 	return this->height;
+}
+
+float Texture::GetScale()
+{
+	return this->scale;
+}
+
+SDL_Renderer* Texture::GetRenderer()
+{
+	return this->renderer;
+}
+
+SDL_Texture* Texture::GetTexture()
+{
+	return this->texture;
 }
 
 
@@ -123,4 +158,10 @@ void Texture::SetAlpha(Uint8 alpha)
 {
 	//Modulate texture alpha
 	SDL_SetTextureAlphaMod(this->texture, alpha);
+}
+
+void Texture::SetScale(float scale)
+{
+	// Stretch image
+	this->scale = scale;
 }

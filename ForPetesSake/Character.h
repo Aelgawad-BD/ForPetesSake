@@ -5,6 +5,7 @@
 // All characters are moving entities and must support the following animations:
 // - Idle animation
 // - Walk animation
+// - Talk animation
 // - Run animation
 // - attack animation
 // - Get Hit animation
@@ -17,16 +18,32 @@ private:
 
 	std::string Name;
 	int healthPoints;
-	int stepSpeed;
-	int baseSpeed;
+	int walkSpeed;
+	int runSpeed;
+	int attackSpeed;
 
 public:
 	Character();
-	Character(int frameWidth, int frameHeight, std::string name, int hp, int sspeed, int bspeed);
+	Character(std::string name, int hp, int wspeed, int rspeed);
 
-	bool LoadTextureFromFile(const std::string file) override;
+	void LoadAllFrames(std::string file);
+
+	void LoadIdleFrames(int frameCount);
+	void LoadWalkFrames(int frameCount);
+	void LoadRunFrames(int frameCount);
+	void LoadAttackFrames(int frameCount);
+
+	int GetRunSpeed();
+	Direction GetDirection();
+	SpriteSheet_Animation GetCurrentAnimation();
+
 	void SetRenderer(SDL_Renderer*) override;
+
+	void Stand();
 	void Walk();
+	void Run();
+	void Attack();
 
 	void SetDirection(Direction direction);
+	void SetScale(float scale);
 };

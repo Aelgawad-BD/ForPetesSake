@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Entity">
+    <Position X="6" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>MAAAAAAAAABCAgAAgAAABAJBACQAAgAgAACAAkAAAAI=</HashCode>
+      <FileName>Entity.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="texture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Character">
+    <Position X="6.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAEAAAAAKAEAAAAwAAAQAAAACLAAASACBAgAACAI=</HashCode>
+      <FileName>Character.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="spriteSheet" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Game">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACCAAAAAAAAgAAAAAAAAAAAgiBAIAAAAAAAAEAIAA=</HashCode>
+      <FileName>Environment.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="background" />
+      <Field Name="mainCharacter" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SDLWRP">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIQAgAAAQAABCAAAABAAAABACAAAACCAQAAEAE=</HashCode>
+      <FileName>SDLWrapper.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="gGame" />
+      <Field Name="gStudioLogo" />
+      <Field Name="gTitleLogo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="SplashScreen">
+    <Position X="2.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CACAAAAAAAiAAACAAAAAAAgAAAAECAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SplashScreen.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpriteSheet">
+    <Position X="9.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABICAAAgiAAIAIgQQAAAEAEAAAAZAigSCABIAAAECE=</HashCode>
+      <FileName>SpriteSheet.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Texture">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEECAAACgAQAQAAAAAACAgAAAiAAIBoAAgAAkAI=</HashCode>
+      <FileName>Texture.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

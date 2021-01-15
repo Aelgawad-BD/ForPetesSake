@@ -1,33 +1,26 @@
 #include "SpriteSheet.h"
 
-
-//SpriteSheet::SpriteSheet()
-//{
-//	LoadWalkingFrames(0, 7);
-//	// loadRunningFrames(0, 7);
-//	// loadIdleFrames(0, 7);
-//}
-
-SpriteSheet::SpriteSheet(int frameWidth, int frameHeight)
+SpriteSheet_Animation SpriteSheet::getCurrentAnimation()
 {
-	this->frameWidth = frameWidth;
-	this->frameHeight = frameHeight;
-	LoadWalkingFrames(0, 7);
+	return this->currentAnimation;
+}
+
+SpriteSheet::SpriteSheet()
+{
 }
 
 SpriteSheet::~SpriteSheet()
 {
-	// To-Test: Will the following call the function SpriteSheet::Free() below?
 	Texture::~Texture();
-
-	if (this->walkFrames != NULL)
-	{
-		delete walkFrames;
-	}
 
 	if (this->idleFrames != NULL)
 	{
 		delete idleFrames;
+	}
+
+	if (this->walkFrames != NULL)
+	{
+		delete walkFrames;
 	}
 
 	if (this->runFrames != NULL)
@@ -36,9 +29,20 @@ SpriteSheet::~SpriteSheet()
 	}
 }
 
-void SpriteSheet::Free()
+
+int SpriteSheet::GetIdleFramesCount()
 {
-	Texture::Free();
+	return this->numberOfIdleFrames;
+}
+
+int SpriteSheet::GetWalkFramesCount()
+{
+	return this->numberOfWalkFrames;
+}
+
+int SpriteSheet::GetRunFramesCount()
+{
+	return this->numberOfRunFrames;
 }
 
 void SpriteSheet::SetFrameDimensions(int fw, int fh)
@@ -53,82 +57,124 @@ void SpriteSheet::SetFrameDimensions(int fw, int fh)
 
 // Chops up the sprite sheet into SDL_Rects and loads them in memory so they're there when needed at render time
 // The purpose of the function is to supply the RenderClip with SDL_Rects
-//  sliced from a sprite sheet. Frames are 0 based index
-void SpriteSheet::LoadWalkingFrames(int startFrame, int endFrame)
-{
-	// NOTE: The following implementation is NOT generic and has magic numbers
-	//       specific for the current sprite sheet, developer discretion is advised
+//   sliced from a sprite sheet. Frames are 0 based index
 
-	if (startFrame > endFrame)
+void SpriteSheet::LoadIdleFrames(int frameCount)
+{
+	this->numberOfIdleFrames = frameCount;
+
+	if (numberOfIdleFrames <= 0)
 	{
-		printf("Animation Start frame %n is higher than End Frame %n", startFrame, endFrame);
+		printf("Idle animation has %n frames!", numberOfIdleFrames);
 		return;
 	}
 
-	// Get number of frames
-	this->numberOfWalkFrames = endFrame - startFrame + 1;
+	this->idleFrames = new SDL_Rect[numberOfIdleFrames];
+
+	for (int i = 0; i <= numberOfIdleFrames; i++)
+	{
+		this->idleFrames[i].x = i * (this->frameWidth);
+		this->idleFrames[i].y = SpriteSheet_Animation::IDLE * this->frameHeight;
+		this->idleFrames[i].w = this->frameWidth;
+		this->idleFrames[i].h = this->frameHeight;
+	}
+}
+
+void SpriteSheet::LoadWalkFrames(int frameCount)
+{
+
+	this->numberOfWalkFrames = frameCount;
+
+	if (numberOfWalkFrames <= 0)
+	{
+		printf("Walk animation has %n frames!", numberOfWalkFrames);
+		return;
+	}
 
 	this->walkFrames = new SDL_Rect[numberOfWalkFrames];
 
-	// const int FRAME_WIDTH = 80;
-	// const int FRAME_HEIGH = 110;
-	const int FRAME_WIDTH = 63;
-	const int FRAME_HEIGH = 100;
-
-	for (int i = startFrame; i <= endFrame; i++)
+	for (int i = 0; i <= numberOfWalkFrames; i++)
 	{
 		this->walkFrames[i].x = i * (this->frameWidth);
-		this->walkFrames[i].y = 0;
+		this->walkFrames[i].y = SpriteSheet_Animation::WALK * this->frameHeight;
 		this->walkFrames[i].w = this->frameWidth;
 		this->walkFrames[i].h = this->frameHeight;
 	}
 }
 
-void SpriteSheet::LoadRunningFrames(int startFrame, int endFrame)
+void SpriteSheet::LoadRunFrames(int frameCount)
 {
-	if (startFrame > endFrame)
+	this->numberOfRunFrames = frameCount;
+
+	if (numberOfRunFrames <= 0)
 	{
-		printf("Animation Start frame %n is higher than End Frame %n", startFrame, endFrame);
+		printf("Run animation has %n frames!", numberOfRunFrames);
 		return;
 	}
 
-	// Get number of frames
-	this->numberOfRunFrames = endFrame - startFrame + 1;
-
 	this->runFrames = new SDL_Rect[numberOfRunFrames];
 
-	// const int FRAME_WIDTH = 80;
-	// const int FRAME_HEIGH = 110;
-	const int FRAME_WIDTH = 63;
-	const int FRAME_HEIGH = 100;
-
-	for (int i = startFrame; i <= endFrame; i++)
+	for (int i = 0; i <= numberOfRunFrames; i++)
 	{
 		this->runFrames[i].x = i * (this->frameWidth);
-		this->runFrames[i].y = 0;
+		this->runFrames[i].y = SpriteSheet_Animation::RUN * this->frameHeight;
 		this->runFrames[i].w = this->frameWidth;
 		this->runFrames[i].h = this->frameHeight;
 	}
 }
 
-void SpriteSheet::LoadIdleFrames(int startFrame, int endFrame)
+void SpriteSheet::LoadAttackFrames(int frameCount)
 {
-	// throw new NotImplementedException();
+	this->numberOfAttackFrames = frameCount;
+
+	if (numberOfAttackFrames <= 0)
+	{
+		printf("Attack animation has %n frames!", numberOfAttackFrames);
+		return;
+	}
+
+	this->attackFrames = new SDL_Rect[numberOfAttackFrames];
+
+	for (int i = 0; i <= numberOfAttackFrames; i++)
+	{
+		this->attackFrames[i].x = i * (this->frameWidth);
+		this->attackFrames[i].y = SpriteSheet_Animation::ATTACK * this->frameHeight;
+		this->attackFrames[i].w = this->frameWidth;
+		this->attackFrames[i].h = this->frameHeight;
+	}
 }
 
+void SpriteSheet::RenderNextIdleFrame(int& posX, int& posY)
+{
+	this->currentAnimation = SpriteSheet_Animation::IDLE;
+	SDL_Delay(this->idleAnimationDelay);
+	// Set rendering space and render to screen
+	SDL_Rect renderQuad = { posX, posY, this->idleFrames[this->currentFrame].w * scale, this->idleFrames[this->currentFrame].h * scale };
+
+	// Render to screen
+	SDL_RenderCopyEx(GetRenderer(),
+		GetTexture(),
+		this->idleFrames + currentFrame, &renderQuad, 0, NULL, this->flip);
+
+	// Get a random frame from 0 to 7
+	currentFrame = rand() % numberOfIdleFrames;
+
+}
 
 void SpriteSheet::RenderNextWalkFrame(int& posX, int& posY, int stepspeed, int basespeed)
 {
-	SDL_Delay(ANIMATION_TIME_DELAY);
+	this->currentAnimation = SpriteSheet_Animation::WALK;
+	SDL_Delay(this->walkAnimationDelay);
 	// Set rendering space and render to screen
 	SDL_Rect renderQuad = { posX, posY, this->walkFrames[this->currentFrame].w, this->walkFrames[this->currentFrame].h };
 
 	// Render to screen
-	SDL_RenderCopyEx(renderer, texture, this->walkFrames + currentFrame, &renderQuad, 0, NULL, this->flip);
+	SDL_RenderCopyEx(GetRenderer(), GetTexture(),
+		this->walkFrames + currentFrame, &renderQuad, 0, NULL, this->flip);
 
 	this->currentFrame++;
 
-	if (this->currentFrame > 5)
+	if (this->currentFrame > ((this->numberOfWalkFrames) - 1)) //7
 	{
 		currentFrame = 0;
 	}
@@ -140,5 +186,72 @@ void SpriteSheet::RenderNextWalkFrame(int& posX, int& posY, int stepspeed, int b
 	else
 	{
 		posX += basespeed;
+	}
+}
+
+void SpriteSheet::RenderNextRunFrame(int& posX, int& posY, int stepspeed)
+{
+	float scale = GetScale();
+
+	this->currentAnimation = SpriteSheet_Animation::RUN;
+	SDL_Delay(this->runAnimationDelay);
+	// Set rendering space and render to screen
+	SDL_Rect renderQuad = { posX, posY, this->runFrames[this->currentFrame].w * scale, this->runFrames[this->currentFrame].h * scale };
+
+	// Render to screen
+	SDL_RenderCopyEx(GetRenderer(), GetTexture(),
+		this->runFrames + currentFrame,
+		&renderQuad, 0, NULL, this->flip);
+
+	this->currentFrame++;
+
+	if (this->currentFrame > ((this->numberOfRunFrames) - 1))
+	{
+		currentFrame = 0;
+	}
+
+	posX += stepspeed;
+}
+
+void SpriteSheet::RenderNextAttackFrame(int& posX, int& posY)
+{
+	float scale = GetScale();
+
+	this->currentAnimation = SpriteSheet_Animation::ATTACK;
+	SDL_Delay(this->attackAnimationDelay);
+	// Set rendering space and render to screen
+	SDL_Rect renderQuad = { posX, posY, this->attackFrames[this->currentFrame].w * scale, this->attackFrames[this->currentFrame].h * scale };
+
+	// Render to screen
+	SDL_RenderCopyEx(GetRenderer(), GetTexture(),
+		this->attackFrames + currentFrame,
+		&renderQuad, 0, NULL, this->flip);
+
+	this->currentFrame++;
+
+	if (this->currentFrame > ((this->numberOfAttackFrames) - 1))
+	{
+		currentFrame = 0;
+		this->currentAnimation = IDLE;
+	}
+
+}
+
+void SpriteSheet::RenderAttackFrames(int& posX, int& posY)
+{
+	float scale = GetScale();
+
+	this->currentAnimation = SpriteSheet_Animation::ATTACK;
+
+	for (size_t i = 0; i < numberOfAttackFrames; i++)
+	{
+		SDL_Delay(this->attackAnimationDelay);
+		// Set rendering space and render to screen
+		SDL_Rect renderQuad = { posX, posY, this->attackFrames[this->currentFrame].w * scale, this->attackFrames[this->currentFrame].h * scale };
+
+		// Render to screen
+		SDL_RenderCopyEx(GetRenderer(), GetTexture(),
+			this->runFrames + currentFrame,
+			&renderQuad, 0, NULL, this->flip);
 	}
 }
